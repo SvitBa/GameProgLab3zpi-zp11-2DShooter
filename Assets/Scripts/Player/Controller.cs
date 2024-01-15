@@ -31,7 +31,7 @@ public class Controller : MonoBehaviour
     [Tooltip("The aim mode in use by this player:\n" +
         "Aim Towards Mouse: Player rotates to face the mouse\n" +
         "Aim Forwards: Player aims the direction they face (doesn't face towards the mouse)")]
-    public AimStates aimMode = AimStates.AimTowardsMouse;
+    public AimStates aimState = AimStates.AimTowardsMouse;
 
     /// <summary>
     /// Enum to handle different movement modes for the player
@@ -43,7 +43,7 @@ public class Controller : MonoBehaviour
         "Move Vertically: Player can only move up/down\n" +
         "FreeRoam: Player can move in any direction and can aim\n" +
         "Astroids: Player moves forward/back in the direction they are facing and rotates with horizontal input")]
-    public MovementStates movementMode = MovementStates.FreeRoam;
+    public MovementStates movementState = MovementStates.FreeRoam;
 
 
     // Whether the player can aim with the mouse or not
@@ -51,7 +51,7 @@ public class Controller : MonoBehaviour
     {
         get
         {
-            return aimMode == AimStates.AimTowardsMouse;
+            return aimState == AimStates.AimTowardsMouse;
         }
     }
 
@@ -60,7 +60,7 @@ public class Controller : MonoBehaviour
     {
         get
         {
-            return movementMode == MovementStates.MoveVertically;
+            return movementState == MovementStates.MoveVertically;
         }
     }
     // Whether the player's Y coordinate is locked (Also assign in rigidbody)
@@ -68,7 +68,7 @@ public class Controller : MonoBehaviour
     {
         get
         {
-            return movementMode == MovementStates.MoveHorizontally;
+            return movementState == MovementStates.MoveHorizontally;
         }
     }
 
@@ -169,7 +169,7 @@ public class Controller : MonoBehaviour
     public Vector2 GetLookPosition()
     {
         Vector2 result = transform.up;
-        if (aimMode != AimStates.AimForwards)
+        if (aimState != AimStates.AimForwards)
         {
             result = new Vector2(inputManager.horizontalLookAxis, inputManager.verticalLookAxis);
         }
@@ -194,7 +194,7 @@ public class Controller : MonoBehaviour
         // Set the player's posiiton accordingly
 
         // Move according to astroids setting
-        if (movementMode == MovementStates.Astroids)
+        if (movementState == MovementStates.Astroids)
         {
 
             // If no rigidbody is assigned, assign one
